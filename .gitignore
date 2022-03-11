@@ -1,4 +1,5 @@
 ### All java ignores template
+result.txt
 ### Java template
 # Compiled class file
 *.class
