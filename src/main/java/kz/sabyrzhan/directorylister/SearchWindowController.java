@@ -2,6 +2,7 @@ package kz.sabyrzhan.directorylister;
 
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -19,6 +20,9 @@ public class SearchWindowController {
     @FXML
     protected TextField searchTextField;
 
+    @FXML
+    protected Label resultLabel;
+
     private final List<FolderData> folderDataList;
 
     public SearchWindowController(List<String> folderNames) {
@@ -31,17 +35,26 @@ public class SearchWindowController {
         tableView.getItems().setAll(folderDataList);
         folderNameColumn.prefWidthProperty().bind(tableView.widthProperty().subtract(20));
         searchTextField.textProperty().addListener(this::onSearchFieldChange);
+        updateResultInfo(folderDataList.size());
     }
 
     @FXML
     public void onSearchFieldChange(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+        int foundItemsSize;
         if (newValue.trim().isEmpty()) {
             tableView.getItems().setAll(folderDataList);
+            foundItemsSize = folderDataList.size();
         } else {
             List<FolderData> filteredData = folderDataList.stream().filter(d -> d.name.toLowerCase().contains(newValue))
                             .sorted().toList();
             tableView.getItems().setAll(filteredData);
+            foundItemsSize = filteredData.size();
         }
+        updateResultInfo(foundItemsSize);
+    }
+
+    private void updateResultInfo(int totalItemsFound) {
+        resultLabel.textProperty().setValue("Total items found: " + totalItemsFound);
     }
 
     public record FolderData(String name) implements Comparable<FolderData> {
