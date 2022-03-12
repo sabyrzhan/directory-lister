@@ -1,5 +1,6 @@
 ### All java ignores template
 result.txt
+whitelistfile.txt
 ### Java template
 # Compiled class file
 *.class

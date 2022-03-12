@@ -1,0 +1,3 @@
+# LEVEl_TO_READ, FOLDER_PATH. For example:
+1, /home/myfolder <-- will read all folders from this folder
+2, /home/myfolder <-- will read all folders from each subfolder
