@@ -1,11 +1,8 @@
 # 📚 📝 List subfolders from specified folder and level
-Repository consists from 2 applications:
-1. CLI app: read all subfolders from specified folder and level and write each name to `result.txt` file.
-2. GUI app: search titles from `result.txt`
+The application is the JavaFX GUI app that read all subfolders from folder list and level 
+and write each name to `result.txt` file if whitelist file specified. If not it assumes that `result.txt` already 
+exists and will use it.
 
-CLI usage:
+Usage:
 1. Copy file whitelistfile.txt.template to whitelistfile.txt and specify folders and levels
-2. Execute `./run.sh cli`
-
-GUI usage:
-1. Execute `./run.sh gui`
+2. Execute `./run.sh [cli | compile]`

@@ -14,8 +14,10 @@ import java.util.List;
 public class MainApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        String whiteListFileName = getParameters().getRaw().get(0);
-        ReportGenerator.generate(whiteListFileName);
+        if (!getParameters().getRaw().isEmpty()) {
+            String whiteListFileName = getParameters().getRaw().get(0);
+            ReportGenerator.generate(whiteListFileName);
+        }
         List<String> folderNames = readFile();
         FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("search-view.fxml"));
         fxmlLoader.setController(new SearchWindowController(folderNames));

@@ -4,8 +4,11 @@ case $app in
   compile)
     mvn clean install javafx:jlink
     ;;
-  run)
+  runfile)
     target/app/bin/app $PWD/whitelistfile.txt
+    ;;
+  run)
+    target/app/bin/app
     ;;
   *)
     echo 'Invalid app: run or compile expected'
