@@ -1,4 +1,4 @@
-package kz.sabyrzhan.searchgui;
+package kz.sabyrzhan.directorylister;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -14,8 +14,10 @@ import java.util.List;
 public class MainApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        List<String> folderNames = readFile(getParameters().getRaw().get(0));
-        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("hello-view.fxml"));
+        String whiteListFileName = getParameters().getRaw().get(0);
+        ReportGenerator.generate(whiteListFileName);
+        List<String> folderNames = readFile();
+        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("search-view.fxml"));
         fxmlLoader.setController(new SearchWindowController(folderNames));
         Scene scene = new Scene(fxmlLoader.load(), 320, 240);
         stage.setTitle("Search items");
@@ -27,9 +29,9 @@ public class MainApplication extends Application {
         launch(args);
     }
 
-    private static List<String> readFile(String fileName) {
+    private static List<String> readFile() {
         List<String> folderNames = new ArrayList<>();
-        try (var stream = Files.lines(Paths.get(fileName))) {
+        try (var stream = Files.lines(Paths.get(ReportGenerator.OUTPUT_FILE_NAME))) {
             stream.forEach(folderNames::add);
         } catch (Exception e) {
             e.printStackTrace();

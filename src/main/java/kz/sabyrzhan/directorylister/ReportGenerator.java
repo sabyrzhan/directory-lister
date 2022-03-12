@@ -1,4 +1,4 @@
-package kz.sabyrzhan;
+package kz.sabyrzhan.directorylister;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -14,7 +14,9 @@ import java.util.Scanner;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
-public class Main {
+public class ReportGenerator {
+    public static final String OUTPUT_FILE_NAME = "result.txt";
+
     public static class WhiteListItem {
         private int level;
         private String rootFolder;
@@ -27,8 +29,7 @@ public class Main {
             return whiteListItem;
         }
     }
-    public static void main(String[] args) {
-        String whileListFile = args[0];
+    public static void generate(String whileListFile) {
         List<WhiteListItem> whiteListItems = new ArrayList<>();
         try(var scanner = new Scanner(new FileInputStream(whileListFile))) {
             while(scanner.hasNextLine()) {
@@ -43,7 +44,6 @@ public class Main {
             System.exit(-1);
         }
 
-        String resultFile = "result.txt";
         var allFiles = new ArrayList<String>();
         for(var whiteListItem : whiteListItems) {
             readFolderContentRecursively(whiteListItem, allFiles, 1);
@@ -53,11 +53,12 @@ public class Main {
                 stringBuilder.append(folder).append("\n");
             }
             String contentToWrite = stringBuilder.toString();
-            try(var fileOutputStream = new FileOutputStream(resultFile);
+            try(var fileOutputStream = new FileOutputStream(OUTPUT_FILE_NAME);
                 PrintWriter writer = new PrintWriter(fileOutputStream)) {
                 writer.print(contentToWrite);
             } catch (Exception e) {
                 e.printStackTrace();
+                System.exit(-1);
             }
         }
 
@@ -83,6 +84,7 @@ public class Main {
             });
         } catch (Exception e) {
             e.printStackTrace();
+            System.exit(-1);
         }
     }
 }

@@ -1,4 +1,4 @@
-package kz.sabyrzhan.searchgui;
+package kz.sabyrzhan.directorylister;
 
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
