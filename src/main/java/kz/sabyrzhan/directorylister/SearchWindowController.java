@@ -8,6 +8,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class SearchWindowController {
@@ -45,8 +46,10 @@ public class SearchWindowController {
             tableView.getItems().setAll(folderDataList);
             foundItemsSize = folderDataList.size();
         } else {
-            List<FolderData> filteredData = folderDataList.stream().filter(d -> d.name.toLowerCase().contains(newValue))
-                            .sorted().toList();
+            String[] terms = newValue.trim().toLowerCase().split(" ");
+            List<FolderData> filteredData = folderDataList.stream()
+                    .filter(d -> Arrays.stream(terms).allMatch(m -> d.name.toLowerCase().contains(m)))
+                    .sorted().toList();
             tableView.getItems().setAll(filteredData);
             foundItemsSize = filteredData.size();
         }
