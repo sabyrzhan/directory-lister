@@ -17,6 +17,9 @@ import java.util.stream.Stream;
 public class ReportGenerator {
     public static final String OUTPUT_FILE_NAME = "result.txt";
 
+    private ReportGenerator() {
+    }
+
     public static class WhiteListItem {
         private int level;
         private String rootFolder;
