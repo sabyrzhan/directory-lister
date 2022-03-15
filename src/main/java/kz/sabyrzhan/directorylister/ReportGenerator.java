@@ -36,7 +36,11 @@ public class ReportGenerator {
         List<WhiteListItem> whiteListItems = new ArrayList<>();
         try(var scanner = new Scanner(new FileInputStream(whileListFile))) {
             while(scanner.hasNextLine()) {
-                String[] tokens = scanner.nextLine().trim().split(",");
+                String whitelistedPath = scanner.nextLine().trim();
+                if (whitelistedPath.isEmpty() || whitelistedPath.startsWith("#")) {
+                    continue;
+                }
+                String[] tokens = whitelistedPath.split(",");
                 var item = new WhiteListItem();
                 item.level = Integer.parseInt(tokens[0]);
                 item.rootFolder = tokens[1];
