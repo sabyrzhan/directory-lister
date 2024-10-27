@@ -8,6 +8,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class SearchWindowController {
@@ -120,6 +122,7 @@ public class SearchWindowController {
                         return true;
                     })
                     .sorted().toList();
+            tableView.setFixedCellSize(25); // Set to your desired row height
             tableView.getItems().setAll(filteredData);
             foundItemsSize = filteredData.size();
         }

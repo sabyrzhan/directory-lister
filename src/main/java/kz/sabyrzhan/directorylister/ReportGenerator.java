@@ -42,8 +42,8 @@ public class ReportGenerator {
                 }
                 String[] tokens = whitelistedPath.split(",");
                 var item = new WhiteListItem();
-                item.level = Integer.parseInt(tokens[0]);
-                item.rootFolder = tokens[1];
+                item.level = Integer.parseInt(tokens[0].trim());
+                item.rootFolder = tokens[1].trim();
                 whiteListItems.add(item);
             }
         } catch (FileNotFoundException e) {
